@@ -1,0 +1,12 @@
+version: '3'
+services:
+  letsauth-db:
+    container_name: letsauth-db
+    image: mongo
+    ports:
+      - 27017:27017
+    logging:
+      driver: 'json-file'
+      options:
+        max-size: '10M'
+        max-file: '5'

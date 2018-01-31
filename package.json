@@ -1,0 +1,24 @@
+{
+  "name": "letsauth",
+  "version": "1.0.0",
+  "main": "server.js",
+  "repository": "git@github.com:rockers7414/letsauth.git",
+  "author": "RCK <rockers7414@gmail.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "babel-eslint": "^8.2.1",
+    "grunt": "^1.0.1",
+    "grunt-eslint": "^20.1.0",
+    "grunt-nodemon": "^0.4.2",
+    "load-grunt-config": "^0.19.2"
+  },
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "cors": "^2.8.4",
+    "express": "^4.16.2",
+    "express-session": "^1.15.6",
+    "jade": "^1.11.0",
+    "jsonwebtoken": "^8.1.1",
+    "mongodb": "^3.0.2"
+  }
+}
