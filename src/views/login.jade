@@ -3,10 +3,8 @@ html
     title LetsAuth - Login
 
   body
-    pre
-      | response_type: #{response_type}
-      | client_id: #{client_id}
-      | redirect_uri: #{redirect_uri}
-      | state: #{state}
-      | scope: #{scope}
-
+    pre !{JSON.stringify(query, null, 2)}
+    form(action="/api/v1/oauth/login?#{qs}", method="POST")
+      input(type="email", name="email")
+      input(type="password", name="password")
+      input(type="submit")

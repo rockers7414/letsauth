@@ -3,6 +3,7 @@
 const jwt = require('jsonwebtoken');
 const fs = require('fs');
 const User = require('./user');
+const Grant = require('./grant');
 
 class Auth {
 
@@ -31,22 +32,14 @@ class Auth {
     });
   }
 
-  // XXX: Deprecate
-  static getAccessToken(email, password) {
+  static getAccessTokenByGrant(grant, expire=3600) {
     return new Promise(async (resolve, reject) => {
       try {
-        const user = await User.getUserByEmail(email);
-
-        if (!user || user.email !== email || user.password !== password) {
-          reject('email and password is not correct');
-        }
-
         const cert = fs.readFileSync('../credentials/private_key.pem');
         const payload = {
-          exp: Math.floor(Date.now() / 1000) + 3600,
-          name: user.firstName,
-          email: user.email,
-          admin: await user.isAdmin()
+          exp: Math.floor(Date.now() / 1000) + expire,
+          email: grant.email,
+          scopes: grant.scopes
         };
         const token = jwt.sign(payload, cert, { algorithm: 'RS256'});
 

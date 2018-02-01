@@ -22,7 +22,10 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(session({
   secret: '1eT50th',
   resave: false,
-  saveUninitialized: true
+  saveUninitialized: true,
+  cookie: {
+    domain: 'localhost'
+  }
 }));
 
 function checkAccessToken(req, res, next) {

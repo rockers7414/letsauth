@@ -2,9 +2,7 @@ html
   head
     title LetsAuth - Grant
   body
-    pre
-      | response_type: #{response_type}
-      | client_id: #{client_id}
-      | redirect_uri: #{redirect_uri}
-      | state: #{state}
-      | scope: #{scope}
+    pre !{JSON.stringify(query, null, 2)}
+    form(action="/api/v1/oauth/grant?#{qs}", method="POST")
+      input(type="submit", name="grant", value="yes")
+      input(type="submit", name="grant", value="no")
