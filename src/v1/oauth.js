@@ -11,7 +11,6 @@ const User = require('../module/user');
 const Client = require('../module/client');
 const Auth = require('../module/auth');
 const Grant = require('../module/grant');
-const Util = require('../lib/util');
 
 router.post('/login', async (req, res) => {
   try {
@@ -72,26 +71,28 @@ router.post('/access_token', async (req, res) => {
     let accessToken;
     const grant_type = req.body.grant_type || '';
     switch (grant_type) {
-      case 'password':
-        accessToken = await Auth.getAccessTokenByPassword(req.body.email,
-          req.body.password,
-          req.body.scopes);
-        break;
+    case 'password': {
+      accessToken = await Auth.getAccessTokenByPassword(req.body.email,
+        req.body.password,
+        req.body.scopes);
+      break;
+    }
 
-      case 'authorization_code':
-        const grant = await Grant.getGrantByCode(req.body.code);
+    case 'authorization_code': {
+      const grant = await Grant.getGrantByCode(req.body.code);
 
-        if (!grant) {
-          // TODO: should handle the code not found.
-        }
+      if (!grant) {
+        // TODO: should handle the code not found.
+      }
 
-        if (grant.redirectUri !== req.body.redirect_uri) {
-          // TODO: should handle the redirect uri is not the same.
-        }
+      if (grant.redirectUri !== req.body.redirect_uri) {
+        // TODO: should handle the redirect uri is not the same.
+      }
 
-        accessToken = await Auth.getAccessTokenByGrant(grant);
-        // TODO: delete grant from the database.
-        break;
+      accessToken = await Auth.getAccessTokenByGrant(grant);
+      // TODO: delete grant from the database.
+      break;
+    }
     }
 
     res.status(200).send(new AccessToken(accessToken, req.body.scopes));

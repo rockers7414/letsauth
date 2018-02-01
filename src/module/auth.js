@@ -3,7 +3,6 @@
 const jwt = require('jsonwebtoken');
 const fs = require('fs');
 const User = require('./user');
-const Grant = require('./grant');
 
 class Auth {
 
